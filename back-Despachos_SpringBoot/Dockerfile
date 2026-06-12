@@ -4,8 +4,8 @@ WORKDIR /app/Springboot-API-REST-DESPACHO
 # Copiamos el archivo de dependencias y el código fuente
 COPY Springboot-API-REST-DESPACHO/pom.xml ./
 COPY Springboot-API-REST-DESPACHO/src ./src
-# Compilamos el proyecto omitiendo los tests para que sea más rápido
-RUN mvn clean package -DskipTests
+# Compilamos el proyecto omitiendo la ejecución y compilación de tests para que sea más rápido
+RUN mvn clean package -DskipTests -Dmaven.test.skip=true
 
 # --- Etapa 2: Producción Segura (Multi-stage) ---
 FROM eclipse-temurin:17-jdk

@@ -31,4 +31,45 @@ public class Venta {
     private LocalDate fechaCompra;
     @NotNull(message = "El campo de despacho debe ser proporcionado")
     private Boolean despachoGenerado = false;
+
+    // Explicit getters/setters in case Lombok processing isn't active
+    public Long getIdVenta() {
+        return this.idVenta;
+    }
+
+    public void setIdVenta(Long idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public String getDireccionCompra() {
+        return this.direccionCompra;
+    }
+
+    public void setDireccionCompra(String direccionCompra) {
+        this.direccionCompra = direccionCompra;
+    }
+
+    public Integer getValorCompra() {
+        return this.valorCompra;
+    }
+
+    public void setValorCompra(Integer valorCompra) {
+        this.valorCompra = valorCompra;
+    }
+
+    public java.time.LocalDate getFechaCompra() {
+        return this.fechaCompra;
+    }
+
+    public void setFechaCompra(java.time.LocalDate fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public Boolean getDespachoGenerado() {
+        return this.despachoGenerado;
+    }
+
+    public void setDespachoGenerado(Boolean despachoGenerado) {
+        this.despachoGenerado = despachoGenerado;
+    }
 }

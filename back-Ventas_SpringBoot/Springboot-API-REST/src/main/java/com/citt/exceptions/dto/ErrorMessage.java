@@ -11,4 +11,10 @@ import org.springframework.http.HttpStatus;
 public class ErrorMessage {
     private HttpStatus status;
     private String message;
+
+    // Explicit constructor to avoid Lombok dependency during compilation
+    public ErrorMessage(HttpStatus status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }

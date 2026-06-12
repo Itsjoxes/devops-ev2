@@ -7,7 +7,8 @@ COPY Springboot-API-REST/pom.xml ./Springboot-API-REST/
 COPY Springboot-API-REST/src ./Springboot-API-REST/src
 
 WORKDIR /app/Springboot-API-REST
-RUN mvn clean package -DskipTests
+# Skip test compilation and execution inside the container
+RUN mvn clean package -DskipTests -Dmaven.test.skip=true
 
 # --- Etapa 2: Producción Segura (Multi-stage) ---
 FROM eclipse-temurin:17-jdk
