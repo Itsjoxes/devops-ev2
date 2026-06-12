@@ -1,0 +1,68 @@
+services:
+  frontend:
+    build:
+      context: ./front_despacho
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - front_data:/usr/share/nginx/html/data
+    depends_on:
+      - backend-despachos
+      - backend-ventas
+
+  backend-despachos:
+    build:
+      context: ./back-Despachos_SpringBoot
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_ENDPOINT: mysql
+      DB_PORT: 3306
+      DB_NAME: proyecto
+      DB_USERNAME: user
+      DB_PASSWORD: password
+
+  backend-ventas:
+    build:
+      context: ./back-Ventas_SpringBoot
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_ENDPOINT: mysql
+      DB_PORT: 3306
+      DB_NAME: proyecto
+      DB_USERNAME: user
+      DB_PASSWORD: password
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_DATABASE: proyecto
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpwd"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  front_data:
+  mysql_data:
